@@ -1,10 +1,29 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_BASE="${1:-/UI-Mocup/}"
+REPO_BASE="${1:-}"
 
-if [[ "$REPO_BASE" == http*://* ]]; then
-	REPO_BASE="/${REPO_BASE#*://*/}"
+if [[ -z "$REPO_BASE" ]]; then
+	origin_url=$(git config --get remote.origin.url 2>/dev/null || true)
+	if [[ -n "$origin_url" ]]; then
+		repo_name="${origin_url##*/}"
+		repo_name="${repo_name%.git}"
+		REPO_BASE="/${repo_name}/"
+	fi
+fi
+
+if [[ -n "$REPO_BASE" ]]; then
+	if [[ "$REPO_BASE" == http*://* ]]; then
+		REPO_BASE=$(echo "$REPO_BASE" | sed -E 's#^https?://[^/]+##')
+	fi
+
+	if [[ "$REPO_BASE" =~ ^[A-Za-z]: ]]; then
+		REPO_BASE="/$(basename "$REPO_BASE")/"
+	fi
+fi
+
+if [[ -z "$REPO_BASE" ]]; then
+	REPO_BASE="/"
 fi
 
 if [[ "$REPO_BASE" != /* ]]; then

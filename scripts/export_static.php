@@ -25,6 +25,7 @@ if ($exportBase !== '') {
 
     $exportBase = rtrim($exportBase, '/') . '/';
     $assetBase = rtrim($exportBase, '/');
+    $repoSlug = trim($exportBase, '/');
 
     config([
         'app.url' => $assetBase,
@@ -60,6 +61,11 @@ foreach ($pages as $path => $view) {
     $html = view($view)->render();
 
     if ($exportBase !== '') {
+        if (!empty($repoSlug)) {
+            $prefixPattern = '#//?[A-Za-z]:[^"\']*/' . preg_quote($repoSlug, '#') . '/#';
+            $html = preg_replace($prefixPattern, '/' . $repoSlug . '/', $html);
+        }
+
         $html = preg_replace('#[A-Za-z]:/[^"\']*/build/#', $exportBase . 'build/', $html);
         $html = preg_replace('#\b(href|src|action)="/(?!/)([^"]*)"#', '$1="' . $exportBase . '$2"', $html);
     }
