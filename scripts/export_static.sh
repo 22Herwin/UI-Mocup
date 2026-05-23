@@ -32,7 +32,7 @@ else
 fi
 
 export VITE_BASE="$REPO_BASE"
-export ASSET_URL="${REPO_BASE%/}"
+export ASSET_URL=""
 export EXPORT_BASE="$REPO_BASE"
 export REPO_SLUG="$REPO_SLUG"
 

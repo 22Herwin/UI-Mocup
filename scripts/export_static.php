@@ -70,6 +70,7 @@ foreach ($pages as $path => $view) {
         if (!empty($repoSlug)) {
             $prefixPattern = '#//?(?:[A-Za-z]:|[a-z])/[^"\']*/' . preg_quote($repoSlug, '#') . '/#';
             $html = preg_replace($prefixPattern, '/' . $repoSlug . '/', $html);
+            $html = str_replace('/' . $repoSlug . '/' . $repoSlug . '/', '/' . $repoSlug . '/', $html);
         }
 
         $html = preg_replace('#[A-Za-z]:/[^"\']*/build/#', $exportBase . 'build/', $html);
