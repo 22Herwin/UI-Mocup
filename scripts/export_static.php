@@ -11,12 +11,25 @@ $kernel = $app->make(Kernel::class);
 $kernel->bootstrap();
 
 $exportBase = getenv('EXPORT_BASE') ?: '';
+$exportBase = trim($exportBase);
+
 if ($exportBase !== '') {
+    if (str_starts_with($exportBase, 'http')) {
+        $path = parse_url($exportBase, PHP_URL_PATH) ?: '/';
+        $exportBase = $path;
+    }
+
+    if (!str_starts_with($exportBase, '/')) {
+        $exportBase = '/' . $exportBase;
+    }
+
     $exportBase = rtrim($exportBase, '/') . '/';
+    $assetBase = rtrim($exportBase, '/');
+
     config([
-        'app.url' => rtrim($exportBase, '/'),
-        'app.asset_url' => rtrim($exportBase, '/'),
-        'vite.asset_url' => rtrim($exportBase, '/'),
+        'app.url' => $assetBase,
+        'app.asset_url' => $assetBase,
+        'vite.asset_url' => $assetBase,
     ]);
 }
 
@@ -48,6 +61,7 @@ foreach ($pages as $path => $view) {
 
     if ($exportBase !== '') {
         $html = preg_replace('#[A-Za-z]:/[^"\']*/build/#', $exportBase . 'build/', $html);
+        $html = preg_replace('#\b(href|src|action)="/(?!/)([^"]*)"#', '$1="' . $exportBase . '$2"', $html);
     }
     file_put_contents($dir . '/index.html', $html);
 }

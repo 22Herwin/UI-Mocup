@@ -3,6 +3,14 @@ set -euo pipefail
 
 REPO_BASE="${1:-/UI-Mocup/}"
 
+if [[ "$REPO_BASE" == http*://* ]]; then
+	REPO_BASE="/${REPO_BASE#*://*/}"
+fi
+
+if [[ "$REPO_BASE" != /* ]]; then
+	REPO_BASE="/${REPO_BASE}"
+fi
+
 if [[ "$REPO_BASE" != */ ]]; then
 	REPO_BASE="${REPO_BASE}/"
 fi
