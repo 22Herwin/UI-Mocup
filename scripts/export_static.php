@@ -10,6 +10,16 @@ $app = require $root . '/bootstrap/app.php';
 $kernel = $app->make(Kernel::class);
 $kernel->bootstrap();
 
+$exportBase = getenv('EXPORT_BASE') ?: '';
+if ($exportBase !== '') {
+    $exportBase = rtrim($exportBase, '/') . '/';
+    config([
+        'app.url' => rtrim($exportBase, '/'),
+        'app.asset_url' => rtrim($exportBase, '/'),
+        'vite.asset_url' => rtrim($exportBase, '/'),
+    ]);
+}
+
 $pages = [
     '' => 'pages.landing',
     'login' => 'pages.login',
@@ -35,6 +45,10 @@ foreach ($pages as $path => $view) {
     }
 
     $html = view($view)->render();
+
+    if ($exportBase !== '') {
+        $html = preg_replace('#[A-Za-z]:/[^"\']*/build/#', $exportBase . 'build/', $html);
+    }
     file_put_contents($dir . '/index.html', $html);
 }
 

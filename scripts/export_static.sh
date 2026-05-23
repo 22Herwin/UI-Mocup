@@ -3,8 +3,13 @@ set -euo pipefail
 
 REPO_BASE="${1:-/UI-Mocup/}"
 
+if [[ "$REPO_BASE" != */ ]]; then
+	REPO_BASE="${REPO_BASE}/"
+fi
+
 export VITE_BASE="$REPO_BASE"
-export ASSET_URL="$REPO_BASE"
+export ASSET_URL="${REPO_BASE%/}"
+export EXPORT_BASE="$REPO_BASE"
 
 rm -f public/hot
 
