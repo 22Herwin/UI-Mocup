@@ -38,10 +38,8 @@ export REPO_SLUG="$REPO_SLUG"
 
 rm -f public/hot
 
-npm run build
 php scripts/export_static.php
 
 rm -rf docs/build
-cp -r public/build docs/build
 
 echo "Static site ready in docs/. Configure GitHub Pages to use /docs on main branch."
