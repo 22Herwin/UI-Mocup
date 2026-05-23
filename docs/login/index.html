@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - AI Academic Mentor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="C:/Program Files/Git/UI-Mocup/build/assets/app-DvqsPIaI.css" /><link rel="stylesheet" href="C:/Program Files/Git/UI-Mocup/build/assets/app-DvqsPIaI.css" /></head>
+<body class="min-h-screen page-shell text-slate-900">
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div class="absolute -top-40 right-10 h-80 w-80 rounded-full bg-amber-200/60 blur-3xl"></div>
+        <div class="absolute top-40 -left-24 h-72 w-72 rounded-full bg-teal-200/50 blur-3xl"></div>
+        <div class="absolute bottom-10 right-1/3 h-64 w-64 rounded-full bg-orange-200/40 blur-3xl"></div>
+    </div>
+
+    <header class="relative z-10">
+        <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
+            <a href="/" class="flex items-center gap-3 text-lg font-semibold">
+                <span class="rounded-full bg-teal-700 px-3 py-1 text-xs uppercase tracking-[0.3em] text-amber-100">AIM</span>
+                <span class="font-semibold" style="font-family: 'Fraunces', serif;">AI Academic Mentor</span>
+            </a>
+            <nav class="hidden items-center gap-6 text-sm text-slate-600 md:flex">
+                <a class="hover:text-slate-900" href="/student">Student</a>
+                <a class="hover:text-slate-900" href="/lecturer">Lecturer</a>
+                <a class="hover:text-slate-900" href="/documents">Documents</a>
+                <a class="hover:text-slate-900" href="/integrations">Integrations</a>
+                <a class="hover:text-slate-900" href="/reports">Reports</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <a href="/login" class="rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-slate-700">Login</a>
+                <a href="/student" class="rounded-full bg-teal-700 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-amber-100 shadow-lg shadow-teal-200">Launch Workspace</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        <section class="mx-auto grid max-w-5xl gap-10 px-6 py-16 md:grid-cols-2">
+    <div class="space-y-6">
+        <p class="text-xs uppercase tracking-[0.3em] text-slate-500">Secure Access</p>
+        <h1 class="text-3xl font-semibold">Sign in with your university or workspace</h1>
+        <p class="text-sm text-slate-600">
+            Choose your role to enable role-based access control, analytics visibility, and mentoring scopes.
+        </p>
+        <div class="space-y-4">
+            <div class="glass rounded-2xl p-5">
+                <p class="text-xs uppercase tracking-[0.2em] text-slate-500">Student</p>
+                <p class="mt-2 text-sm text-slate-600">Mentoring guidance, projects, and document feedback.</p>
+            </div>
+            <div class="glass rounded-2xl p-5">
+                <p class="text-xs uppercase tracking-[0.2em] text-slate-500">Lecturer</p>
+                <p class="mt-2 text-sm text-slate-600">Analytics, engagement tracking, and integrity reports.</p>
+            </div>
+        </div>
+    </div>
+    <div class="panel rounded-3xl p-6">
+        <h2 class="text-lg font-semibold">Login</h2>
+        <div class="mt-4 space-y-3">
+            <a href="/student" class="block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-center text-sm font-semibold text-slate-700">Continue with University SSO</a>
+            <a href="/student" class="block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-center text-sm font-semibold text-slate-700">Continue with OAuth2</a>
+        </div>
+        <div class="mt-6">
+            <label class="text-xs uppercase tracking-[0.2em] text-slate-500">Email</label>
+            <input class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm" placeholder="student@university.edu" />
+        </div>
+        <div class="mt-4">
+            <label class="text-xs uppercase tracking-[0.2em] text-slate-500">Password</label>
+            <input type="password" class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm" placeholder="********" />
+        </div>
+        <a href="/student" class="mt-6 block w-full rounded-xl bg-teal-700 px-4 py-3 text-center text-sm font-semibold text-amber-100">Sign in</a>
+        <p class="mt-4 text-xs text-slate-500">Access is governed by tenant policies and role-based access control.</p>
+    </div>
+</section>
+    </main>
+
+    <footer class="relative z-10 border-t border-slate-200/70 py-8">
+        <div class="mx-auto flex max-w-6xl flex-col gap-4 px-6 text-sm text-slate-600 md:flex-row md:items-center md:justify-between">
+            <p>Integrity-first mentoring for universities and research teams.</p>
+            <div class="flex flex-wrap gap-4">
+                <a href="/integrations" class="hover:text-slate-900">LMS Integrations</a>
+                <a href="/admin/tenant" class="hover:text-slate-900">Tenant Settings</a>
+                <a href="/reports" class="hover:text-slate-900">Reporting</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
