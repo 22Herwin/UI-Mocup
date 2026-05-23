@@ -1,42 +1,40 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_BASE="${1:-}"
+REPO_INPUT="${1:-}"
+REPO_SLUG=""
 
-if [[ -z "$REPO_BASE" ]]; then
+if [[ -n "$REPO_INPUT" ]]; then
+	if [[ "$REPO_INPUT" == http*://* ]]; then
+		REPO_SLUG=$(echo "$REPO_INPUT" | sed -E 's#^https?://[^/]+/##' | cut -d/ -f1)
+	elif [[ "$REPO_INPUT" == /* ]]; then
+		REPO_SLUG=$(echo "$REPO_INPUT" | sed -E 's#^/##' | cut -d/ -f1)
+	else
+		REPO_SLUG="$REPO_INPUT"
+	fi
+else
 	origin_url=$(git config --get remote.origin.url 2>/dev/null || true)
 	if [[ -n "$origin_url" ]]; then
 		repo_name="${origin_url##*/}"
 		repo_name="${repo_name%.git}"
-		REPO_BASE="/${repo_name}/"
+		REPO_SLUG="$repo_name"
 	fi
 fi
 
-if [[ -n "$REPO_BASE" ]]; then
-	if [[ "$REPO_BASE" == http*://* ]]; then
-		REPO_BASE=$(echo "$REPO_BASE" | sed -E 's#^https?://[^/]+##')
-	fi
-
-	if [[ "$REPO_BASE" =~ ^[A-Za-z]: ]]; then
-		REPO_BASE="/$(basename "$REPO_BASE")/"
-	fi
+if [[ -z "$REPO_SLUG" ]]; then
+	REPO_SLUG=""
 fi
 
-if [[ -z "$REPO_BASE" ]]; then
+if [[ -n "$REPO_SLUG" ]]; then
+	REPO_BASE="/${REPO_SLUG}/"
+else
 	REPO_BASE="/"
-fi
-
-if [[ "$REPO_BASE" != /* ]]; then
-	REPO_BASE="/${REPO_BASE}"
-fi
-
-if [[ "$REPO_BASE" != */ ]]; then
-	REPO_BASE="${REPO_BASE}/"
 fi
 
 export VITE_BASE="$REPO_BASE"
 export ASSET_URL="${REPO_BASE%/}"
 export EXPORT_BASE="$REPO_BASE"
+export REPO_SLUG="$REPO_SLUG"
 
 rm -f public/hot
 

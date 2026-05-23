@@ -12,6 +12,12 @@ $kernel->bootstrap();
 
 $exportBase = getenv('EXPORT_BASE') ?: '';
 $exportBase = trim($exportBase);
+$repoSlugEnv = getenv('REPO_SLUG') ?: '';
+
+if ($repoSlugEnv !== '') {
+    $repoSlugEnv = trim($repoSlugEnv, '/');
+    $exportBase = '/' . $repoSlugEnv . '/';
+}
 
 if ($exportBase !== '') {
     if (str_starts_with($exportBase, 'http')) {
@@ -62,7 +68,7 @@ foreach ($pages as $path => $view) {
 
     if ($exportBase !== '') {
         if (!empty($repoSlug)) {
-            $prefixPattern = '#//?[A-Za-z]:[^"\']*/' . preg_quote($repoSlug, '#') . '/#';
+            $prefixPattern = '#//?(?:[A-Za-z]:|[a-z])/[^"\']*/' . preg_quote($repoSlug, '#') . '/#';
             $html = preg_replace($prefixPattern, '/' . $repoSlug . '/', $html);
         }
 
